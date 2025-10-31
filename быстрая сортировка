@@ -1,0 +1,78 @@
+java
+
+public class QuickSort {
+
+    // Основной метод для запуска сортировки
+    public static void main(String[] args) {
+        int[] array = {10, 7, 8, 9, 1, 5};
+
+        System.out.println("Исходный массив:");
+        printArray(array);
+
+        quickSort(array, 0, array.length - 1);
+
+        System.out.println("\nОтсортированный массив:");
+        printArray(array);
+    }
+
+    // Метод для сортировки массива
+    public static void quickSort(int[] array, int low, int high) {
+        if (low < high) {
+            // pi - индекс разбиения, array[pi] находится на своем месте
+            int pi = partition(array, low, high);
+
+            // Рекурсивная сортировка элементов до и после разбиения
+            quickSort(array, low, pi - 1);
+            quickSort(array, pi + 1, high);
+        }
+    }
+
+    // Метод для разбиения массива
+    private static int partition(int[] array, int low, int high) {
+        int pivot = array[high]; // опорный элемент
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            // Если текущий элемент меньше или равен опорному
+            if (array[j] <= pivot) {
+                i++;
+                // Обмен элементов array[i] и array[j]
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        // Обмен array[i+1] и array[high] (опорный элемент)
+        int temp = array[i + 1];
+        array[i + 1] = array[high];
+        array[high] = temp;
+
+        return i + 1;
+    }
+
+    // Вспомогательный метод для вывода массива
+    private static void printArray(int[] array) {
+        for (int value : array) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+    }
+}
+
+
+python
+
+def quick_sort(array):
+    if len(array) <= 1:
+        return array
+    else:
+        pivot = array[-1]
+        less = [x for x in array[:-1] if x <= pivot]
+        greater = [x for x in array[:-1] if x > pivot]
+        return quick_sort(less) + [pivot] + quick_sort(greater)
+
+def print_array(arr):
+    for value in arr:
+        print(value, end=' ')
+    print()
