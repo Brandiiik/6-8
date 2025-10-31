@@ -1,0 +1,115 @@
+java
+
+public class MergeSort {
+
+    // Метод для объединения двух отсортированных массивов
+    public static int[] merge(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
+        int i = 0, j = 0, k = 0;
+
+        // Пока есть элементы в обоих массивах
+        while (i < left.length && j < right.length) {
+            if (left[i] < right[j]) {
+                result[k++] = left[i++];
+            } else {
+                result[k++] = right[j++];
+            }
+        }
+
+        // Копируем оставшиеся элементы из left
+        while (i < left.length) {
+            result[k++] = left[i++];
+        }
+
+        // Копируем оставшиеся элементы из right
+        while (j < right.length) {
+            result[k++] = right[j++];
+        }
+
+        return result;
+    }
+
+    // Метод для сортировки массива с помощью сортировки слиянием
+    public static int[] mergeSort(int[] array) {
+        if (array.length <= 1) {
+            return array; // массив из 0 или 1 элемента уже отсортирован
+        }
+
+        // Делим массив на две части
+        int mid = array.length / 2;
+        int[] left = new int[mid];
+        int[] right = new int[array.length - mid];
+
+        System.arraycopy(array, 0, left, 0, mid);
+        System.arraycopy(array, mid, right, 0, array.length - mid);
+
+        // Рекурсивно сортируем каждую часть
+        left = mergeSort(left);
+        right = mergeSort(right);
+
+        // Объединяем отсортированные части
+        return merge(left, right);
+    }
+
+    public static void main(String[] args) {
+        int[] array = {38, 27, 43, 3, 9, 82, 10}; // исходный массив
+        System.out.println("Исходный массив: ");
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+
+        int[] sortedArray = mergeSort(array);
+
+        System.out.println("Отсортированный массив: ");
+        for (int num : sortedArray) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+
+
+python
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    # Пока есть элементы в обоих массивах
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    # Добавляем оставшиеся элементы
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+def merge_sort(arr):
+    # Базовый случай: массив длиной 0 или 1 уже отсортирован
+    if len(arr) <= 1:
+        return arr
+
+    # Находим середину массива
+    mid = len(arr) // 2
+
+    # Делим массив на две части
+    left = arr[:mid]
+    right = arr[mid:]
+
+    # Рекурсивно сортируем каждую часть
+    left = merge_sort(left)
+    right = merge_sort(right)
+
+    # Сливаем отсортированные части
+    return merge(left, right)
+
+# Пример использования
+if __name__ == "__main__":
+    array = [38, 27, 43, 3, 9, 82, 10]
+    print("Исходный массив:", array)
+    sorted_array = merge_sort(array)
+    print("Отсортированный массив:", sorted_array)
