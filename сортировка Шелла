@@ -1,0 +1,85 @@
+cpp
+
+#include <iostream>
+#include <vector>
+
+// Функция для сортировки Шелла
+void shellSort(std::vector<int>& arr) {
+    int n = arr.size();
+
+    // Начинаем с большого промежутка и уменьшаем его
+    for (int gap = n / 2; gap > 0; gap /= 2) {
+        // Проходим по всем элементам с текущим промежутком
+        for (int i = gap; i < n; i++) {
+            // Сохраняем текущий элемент
+            int temp = arr[i];
+            int j;
+
+            // Сдвигаем элементы, которые больше temp, вправо
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                arr[j] = arr[j - gap];
+            }
+
+            // Вставляем temp на правильное место
+            arr[j] = temp;
+        }
+    }
+}
+
+// Функция для вывода массива
+void printArray(const std::vector<int>& arr) {
+    for (int num : arr) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    // Пример использования
+    std::vector<int> arr = {12, 34, 54, 2, 3};
+
+    std::cout << "Исходный массив: ";
+    printArray(arr);
+
+    shellSort(arr);
+
+    std::cout << "Отсортированный массив: ";
+    printArray(arr);
+
+    return 0;
+}
+
+
+
+python
+
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2
+
+    # Начинаем с большого промежутка и уменьшаем его
+    while gap > 0:
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            # Сдвигаем элементы, которые больше temp, вправо
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            arr[j] = temp
+        gap //= 2
+
+def print_array(arr):
+    for num in arr:
+        print(num, end=' ')
+    print()
+
+# Пример использования
+array = [12, 34, 54, 2, 3]
+print("Исходный массив:")
+print_array(array)
+
+shell_sort(array)
+
+print("Отсортированный массив:")
+print_array(array)
